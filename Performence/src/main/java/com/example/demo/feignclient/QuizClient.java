@@ -10,15 +10,15 @@ import com.example.demo.dto.CourseDTO;
 import com.example.demo.dto.QuizDTO;
 import com.example.demo.dto.QuizSubmissionDTO;
 
-@FeignClient(name = "QUIZMANAGEMENT", path = "/quiz")
+@FeignClient(name = "ASSIGNMENTANDQUIZMANAGEMENT", path = "/quiz")
 public interface QuizClient {
-	@GetMapping("/fetchQuizByUserId/{uid}")
-	public List<CourseDTO> getCoursesByUserId(@PathVariable("uid") int userId);
+	@GetMapping("/getByUserId/{id}")
+	public List<CourseDTO> getCoursesByUserId(@PathVariable("id") int userId);
 
-	@GetMapping("/getSubmissionByUserId/{uid}/{qid}")
+	@GetMapping("/getquiz/{uid}/{qid}")
 	public abstract QuizSubmissionDTO getQuizSubmissionByUserId(@PathVariable("uid") int userId,@PathVariable("qid") int quizId);
 
-	@GetMapping("/getQuizByCourseId/{cid}")
-	public abstract List<QuizDTO> getQuizByCourseId(@PathVariable("cid") int courseId);
+	@GetMapping("/getQuizByCourseId/{id}")
+	public abstract List<QuizDTO> getQuizByCourseId(@PathVariable("id") int courseId);
 
 }

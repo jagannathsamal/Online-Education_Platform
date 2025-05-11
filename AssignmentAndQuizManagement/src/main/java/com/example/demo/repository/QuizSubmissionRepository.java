@@ -8,6 +8,6 @@ import com.example.demo.model.QuizSubmission;
 
 public interface QuizSubmissionRepository extends JpaRepository<QuizSubmission, Integer> {
 	List<QuizSubmission> findByUserId(int userId);
-	QuizSubmissionRepository findByUserIdAndQuizId(int userId, int quizId);
+	QuizSubmission findByUserIdAndQuizId(int userId, int quizId);
 
 }

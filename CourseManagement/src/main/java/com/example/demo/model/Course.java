@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Course {
 	@Id
-	@GeneratedValue
 	private int courseId;
 	@NotBlank(message="Title connot be empty")
 	private String title;

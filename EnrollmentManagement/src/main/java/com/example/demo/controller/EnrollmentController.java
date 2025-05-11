@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Course;
 import com.example.demo.dto.EnrollmentResponseDTO;
+import com.example.demo.exception.EnrollmentNotFound;
 import com.example.demo.model.Enrollment;
 import com.example.demo.service.EnrollmentService;
 
@@ -30,8 +31,8 @@ public class EnrollmentController {
 	public String deleteEnrollment(@PathVariable int enrollmentId) {
 		return service.deleteEnrollment(enrollmentId);
 	}
-	@GetMapping("/fetchById/{id}")
-	public EnrollmentResponseDTO getEnrollment(@PathVariable("id") int enrollmentId) {
+	@GetMapping("/getById/{id}")
+	public EnrollmentResponseDTO getEnrollment(@PathVariable("id") int enrollmentId) throws EnrollmentNotFound {
 		return service.getEnrollment(enrollmentId);
 		
 	}
@@ -39,6 +40,10 @@ public class EnrollmentController {
 	public List<Course> getCourseByUserId(@PathVariable("id") int userId) {
 		return service.getCourseByUserId(userId);
 		
+	}
+	@GetMapping("/getByCourseId/{id}")
+	public List<Enrollment> findByCourseId(@PathVariable("id") int courseId) {
+		return service.findByCourseId(courseId);
 	}
 	
 }

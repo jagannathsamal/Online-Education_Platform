@@ -31,9 +31,11 @@ public class QuizServiceImpl implements QuizService {
 
 	@Override
 	public String saveQuiz(Quiz quiz) {
-		courseClient.existsById(quiz.getCourseId());
-		repository.save(quiz);
-		return "Quiz added successfully....";
+		if(!courseClient.existsById(quiz.getCourseId()))
+			return"invalid courseId";
+		else
+			repository.save(quiz);
+			return "Quiz added successfully....";
 		
 	}
 
@@ -57,25 +59,25 @@ public class QuizServiceImpl implements QuizService {
 		return repository.save(quiz);
 	}
 
-//	@Override
-//	public QuizSubmission evaluateQuiz(QuizSubmission quizSubmission) {
-//		Boolean response = userClient.existsById(quizSubmission.getUserId());
-//		 
-//		Quiz quiz = repository.findById(quizSubmission.getQuizId()).get();
-//		int score = 0;
-//		List<String> correctAnswers = quiz.getCorrectAnswer();
-//		for (int i = 0; i < quizSubmission.getResponses().size(); i++) {
-//			boolean isCorrect = quizSubmission.getResponses().get(i).equalsIgnoreCase(correctAnswers.get(i));
-//			if (isCorrect) {
-//				score += 10;
-//			}
-//		}
-//		quizSubmission.setScore(score);
-//		quizSubmission.setPassed(score >= quiz.getTotalMarks()*(0.5));// Passing criteria: 60%
-//		submissionrepository.save(quizSubmission);
-//		return quizSubmission;
-//		
-//	}
+	@Override
+	public QuizSubmission evaluateQuiz(QuizSubmission quizSubmission) {
+		Boolean response = userClient.existsById(quizSubmission.getUserId());
+		 
+		Quiz quiz = repository.findById(quizSubmission.getQuizId()).get();
+		int score = 0;
+		List<String> correctAnswers = quiz.getCorrectAnswer();
+		for (int i = 0; i < quizSubmission.getResponses().size(); i++) {
+			boolean isCorrect = quizSubmission.getResponses().get(i).equalsIgnoreCase(correctAnswers.get(i));
+			if (isCorrect) {
+				score += 1;
+			}
+		}
+		quizSubmission.setScore(score);
+		quizSubmission.setPassed(score >= quiz.getTotalMarks()*(0.5));// Passing criteria: 60%
+		submissionrepository.save(quizSubmission);
+		return quizSubmission;
+		
+	}
 
 	@Override
 	public List<Quiz> getAllQuizzes() {
@@ -88,14 +90,15 @@ public class QuizServiceImpl implements QuizService {
 		return repository.findByCourseId(courseId);
 	}
 
-//	@Override
-//	public QuizSubmissionRepository getQuizSubmissionByUserId(int userId, int quizId) {
-//		return submissionrepository.findByUserIdAndQuizId(userId,quizId);
-//	}
 
-//	@Override
-//	public List<QuizSubmission> getAllQuizSubmissionByUserId(int userId) {
-//		return submissionrepository.findByUserId(userId);
-//	}
+	@Override
+	public List<QuizSubmission> getAllQuizSubmissionByUserId(int userId) {
+		return submissionrepository.findByUserId(userId);
+	}
+
+	@Override
+	public QuizSubmission getQuizSubmissionByUserId(int userId, int quizId) {
+		return submissionrepository.findByUserIdAndQuizId(userId, quizId);
+	}
 
 }

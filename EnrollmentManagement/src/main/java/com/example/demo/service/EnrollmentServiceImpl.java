@@ -1,4 +1,5 @@
 package com.example.demo.service;
+
 import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.Repository.EnrollmentRepository;
 import com.example.demo.dto.Course;
 import com.example.demo.dto.EnrollmentResponseDTO;
+import com.example.demo.exception.EnrollmentNotFound;
 import com.example.demo.feignclient.CourseClient;
 import com.example.demo.feignclient.UserClient;
 import com.example.demo.model.Enrollment;
@@ -19,43 +21,43 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 	@Autowired
 	EnrollmentRepository repository;
-	
+
 	@Autowired
 	UserClient userClient;
-	
+
 	@Autowired
 	CourseClient courseClient;
 
 	@Override
 	public String saveEnrollment(Enrollment enrollment) {
-        if(!userClient.existsById(enrollment.getUserId())) {
-        	return "UserId or courseId Not Found";
-        }
-        
-        if(!courseClient.existsById(enrollment.getCourseId())) {
-        	return "UserId or courseId Not Found";
-        }
-	
-  
-            repository.save(enrollment);
-            return "Enrollment saved successfully.";
-        
-    }
+		if (!userClient.existsById(enrollment.getUserId())) {
+			return "UserId or courseId Not Found";
+		}
+
+		if (!courseClient.existsById(enrollment.getCourseId())) {
+			return "UserId or courseId Not Found";
+		}
+
+		repository.save(enrollment);
+		return "Enrollment saved successfully.";
+
+	}
 
 	@Override
 	public String deleteEnrollment(int enrollmentId) {
-		repository.deleteById(enrollmentId);;
+		repository.deleteById(enrollmentId);
+		;
 		return "enrollment deleted";
 	}
 
 	@Override
-	public EnrollmentResponseDTO getEnrollment(int enrollmentId) {
-		Enrollment enrollment=repository.findById(enrollmentId).get();
-		int courseId=enrollment.getCourseId();
-		Course course= courseClient.getcourse(courseId);
-		EnrollmentResponseDTO responseDTO=new EnrollmentResponseDTO(course,enrollment);
-		return responseDTO;
-		
+
+	public EnrollmentResponseDTO getEnrollment(int enrollmentId) throws EnrollmentNotFound {
+		Enrollment enrollment = repository.findById(enrollmentId)
+				.orElseThrow(() -> new EnrollmentNotFound("Enrollment not found with ID: " + enrollmentId));
+		int courseId = enrollment.getCourseId();
+		Course course = courseClient.getcourse(courseId);
+		return new EnrollmentResponseDTO(course, enrollment);
 	}
 
 	@Override
@@ -72,9 +74,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
 	@Override
 	public List<Enrollment> findByCourseId(int courseId) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findByCourseId(courseId);
 	}
-
 
 }

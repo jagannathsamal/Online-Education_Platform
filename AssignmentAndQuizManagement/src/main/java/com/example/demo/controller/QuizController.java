@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.QuizResponseDTO;
 import com.example.demo.model.Quiz;
+import com.example.demo.model.QuizSubmission;
 import com.example.demo.service.QuizService;
 
 @RestController
@@ -47,6 +48,18 @@ public class QuizController {
 	@GetMapping("/getQuizByCourseId/{id}")
 	public List<Quiz> getQuizByCourseId(@PathVariable("id") int courseId) {
 		return service.getQuizByCourseId(courseId);
+	}
+	@PostMapping("/submit")
+	public QuizSubmission evaluateQuiz(@RequestBody QuizSubmission quizSubmission) {
+		return service.evaluateQuiz(quizSubmission);
+		}
+	@GetMapping("/getByUserId/{id}")
+	public List<QuizSubmission> getAllQuizSubmissionByUserId(@PathVariable("id") int userId) {
+		return service.getAllQuizSubmissionByUserId(userId);
+	}
+	@GetMapping("/getquiz/{uid}/{qid}")
+	public QuizSubmission getQuizSubmissionByUserId(@PathVariable("uid") int userId,@PathVariable("qid") int quizId) {
+		return service.getQuizSubmissionByUserId(userId, quizId);
 	}
 
 }

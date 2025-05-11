@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.dto.Course;
 import com.example.demo.dto.EnrollmentResponseDTO;
+import com.example.demo.exception.EnrollmentNotFound;
 import com.example.demo.model.Enrollment;
 
 public interface EnrollmentService {
@@ -11,7 +12,7 @@ public interface EnrollmentService {
 	
 	public abstract String deleteEnrollment(int enrollmentId);
 	
-	public abstract EnrollmentResponseDTO getEnrollment(int enrollmentId);
+	public abstract EnrollmentResponseDTO getEnrollment(int enrollmentId) throws EnrollmentNotFound;
 	
 	public abstract List<Course> getCourseByUserId(int usrId);
 	

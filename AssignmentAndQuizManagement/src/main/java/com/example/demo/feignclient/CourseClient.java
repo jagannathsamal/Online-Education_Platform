@@ -10,7 +10,7 @@ import com.example.demo.dto.Course;
 public interface CourseClient {
 	@GetMapping("/existBy/{id}")
 	public boolean existsById(@PathVariable("id") int courseId);
-	@GetMapping("/fetchById/{id}")
+	@GetMapping("/getById/{id}")
 	public Course getcourse(@PathVariable("id") int courseId);
 	
 	
