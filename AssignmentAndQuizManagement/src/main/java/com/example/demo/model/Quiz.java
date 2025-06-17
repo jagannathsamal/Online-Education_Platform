@@ -2,8 +2,10 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -21,6 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Quiz {
 	@Id
+	@GeneratedValue
 
 	@Min(value = 1, message = "Quiz ID must be greater than 0")
 	private int quizId;
@@ -32,6 +35,12 @@ public class Quiz {
 	@Size(min = 1, message = "There must be at least one question")
 	@ElementCollection
 	private List<@NotBlank(message = "Question cannot be blank") String> questions;
+	
+	@ElementCollection
+    @NotEmpty(message = "Options list cannot be empty")
+    @Size(min = 1, message = "There must be at least one set of options")
+	@Column(columnDefinition = "TEXT")
+    private List<List<String>> options;
 
 	@NotEmpty(message = "Correct answers list cannot be empty")
 	@Size(min = 1, message = "There must be at least one correct answer")

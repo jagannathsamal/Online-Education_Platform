@@ -45,5 +45,10 @@ public class EnrollmentController {
 	public List<Enrollment> findByCourseId(@PathVariable("id") int courseId) {
 		return service.findByCourseId(courseId);
 	}
+	@GetMapping("/getAll")
+	public List<Enrollment> findAll() {
+	    return service.findAll();
+	}
+
 	
 }

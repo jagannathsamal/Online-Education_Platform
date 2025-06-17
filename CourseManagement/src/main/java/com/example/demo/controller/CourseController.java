@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,6 +53,10 @@ public class CourseController {
 	@GetMapping("/existBy/{id}")
 	public boolean existsById(@PathVariable("id") int courseId) {
 		return service.existsById(courseId);
+	}
+	@GetMapping("/getContentBy/{id}")
+	public String getContentByCourseId(@PathVariable("id") int courseId) {
+	    return service.getContentByCourseId(courseId);
 	}
 
 }

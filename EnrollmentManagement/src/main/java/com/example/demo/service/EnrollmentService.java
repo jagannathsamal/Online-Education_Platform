@@ -17,6 +17,10 @@ public interface EnrollmentService {
 	public abstract List<Course> getCourseByUserId(int usrId);
 	
 	public abstract List<Enrollment> findByCourseId(int courseId);
+	
+	public abstract List<Enrollment> findAll();
+	
+	boolean existsByUserIdAndCourseId(int userId, int courseId);
 
 
 }

@@ -8,8 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,9 +33,8 @@ public class QuizSubmission {
 	@Min(value = 1, message = "User ID must be greater than 0")
 	private int userId;
 
-	@NotEmpty(message = "Responses list cannot be empty")
 	@ElementCollection
-	private List<@NotBlank(message = "Response cannot be blank") String> responses;
+	private List<String> responses;
 
 	@Min(value = 0, message = "Score cannot be negative")
 	private int score;

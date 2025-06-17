@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.dto.QuizResponseDTO;
 import com.example.demo.model.Quiz;
 import com.example.demo.model.QuizSubmission;
@@ -38,7 +37,7 @@ public class QuizController {
 		return service.getQuizByid(quizId);
 	}
 	@PutMapping("/update")
-	public Quiz updateQuiz(@RequestBody Quiz quiz) {
+	public String updateQuiz(@RequestBody Quiz quiz) {
 		return service.updateQuiz(quiz);
 	}
 	@GetMapping("/getAll")

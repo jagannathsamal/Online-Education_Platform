@@ -37,7 +37,6 @@ class CourseManagementApplicationTests {
         course.setTitle("Java");
         course.setDescription("Java Basics");
         course.setCategory("Programming");
-        course.setInstructorId(101);
     }
 
     @Test

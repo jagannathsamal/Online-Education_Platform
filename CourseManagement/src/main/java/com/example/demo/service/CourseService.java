@@ -19,5 +19,7 @@ public interface CourseService {
 	
 	public abstract boolean existsById(int courseId);
 	
+	public abstract String getContentByCourseId(int courseId);
+	
 
 }

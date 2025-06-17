@@ -23,7 +23,10 @@ public class PerformenceServiceImpl implements PerformenceService{
 	
 	@Autowired
 	QuizClient quizClient;
-
+	
+//	@Autowired
+//	UserClient userClient;
+	
 	@Override
 	public List<CourseDTO> getCourseByUserId(int userId) {
 		return enrollmentClient.getCourseByUserId(userId);
@@ -48,5 +51,10 @@ public class PerformenceServiceImpl implements PerformenceService{
 		}
 		return new UserDTO(userId,courseProgressDTOs);
 	}
+
+	
+	
+	
+
 
 }

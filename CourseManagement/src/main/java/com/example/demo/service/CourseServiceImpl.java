@@ -28,7 +28,7 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public Course getcourse(int courseId) throws CourseNotFound{
+	public Course getcourse(int courseId) throws CourseNotFound {
 		Optional<Course> optional=repository.findById(courseId);
 		if(optional.isPresent()) {
 			return optional.get();
@@ -53,6 +53,12 @@ public class CourseServiceImpl implements CourseService {
 	public boolean existsById(int courseId) {
 		return repository.existsById(courseId);
 	}
-	
+
+	@Override
+	public String getContentByCourseId(int courseId) {
+		Course course = repository.findContentByCourseId(courseId);
+		return course.getContent();
+	}
+
 
 }

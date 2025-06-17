@@ -12,7 +12,7 @@ public interface QuizService {
 	
 	public abstract QuizResponseDTO getQuizByid(int quizId);
 	 
-	public abstract Quiz updateQuiz(Quiz quiz);
+	public abstract String updateQuiz(Quiz quiz);
  
 	public abstract QuizSubmission evaluateQuiz(QuizSubmission quizSubmission);
  
